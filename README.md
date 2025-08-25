@@ -1,92 +1,58 @@
-Sistema de Gerenciamento de Vendas - Desafio Técnico
-Visão Geral
-Este sistema é uma aplicação WPF desenvolvida utilizando o padrão de arquitetura MVVM (Model-View-ViewModel) para gerenciar o cadastro de pessoas (clientes), produtos e o registro de pedidos de venda. O objetivo deste projeto é demonstrar a aplicação dos princípios de separação de responsabilidades, testabilidade e organização de código em uma aplicação desktop.
+🚀 Sistema de Gerenciamento de Vendas
+"O desafio era grande, a solução é elegante. Uma aplicação WPF para gerenciar vendas, feita com o poder do MVVM."
 
-Funcionalidades Principais
-Cadastro de Pessoas:
+Este projeto é uma aplicação desktop desenvolvida em C# com WPF e o padrão MVVM, focada na gestão completa de clientes, produtos e pedidos. Ele demonstra como uma arquitetura bem-definida pode tornar o código limpo, modular e fácil de manter.
 
-Adicionar, editar e excluir informações de clientes (Nome, CPF, Endereço).
+✨ Funcionalidades
+O sistema é dividido em três módulos principais, cada um com sua tela e lógica dedicada.
 
-Filtrar e buscar clientes por nome e CPF.
+👤 Gerenciamento de Pessoas (Clientes)
+Adicione, edite e remova clientes de forma intuitiva.
 
-Visualização dos pedidos associados a um cliente.
+Busque clientes rapidamente por nome e CPF.
 
-Funcionalidade para marcar pedidos como pagos (implementação pendente de detalhes).
+Validação básica de CPF para garantir que os dados de entrada estejam no formato correto.
 
-Validação básica do formato do CPF.
+Futuramente, visualize o histórico de pedidos de cada cliente, com a possibilidade de marcar o status da venda como "pago".
 
-Cadastro de Produtos:
+📦 Gerenciamento de Produtos
+Controle completo sobre o catálogo de produtos: adicione, edite e remova itens.
 
-Adicionar, editar e excluir informações de produtos (Nome, Código, Valor).
+Filtre produtos por nome, código ou faixa de valor.
 
-Filtrar e buscar produtos por nome, código e faixa de valor.
+🛒 Registro de Pedidos
+O coração do sistema! Crie novos pedidos selecionando clientes e produtos.
 
-Registro de Pedidos:
+Adicione itens ao pedido com quantidade e veja o cálculo do valor total em tempo real.
 
-Selecionar um cliente para o pedido.
+Finalize a venda escolhendo a forma de pagamento (dinheiro, cartão, boleto) e registre o pedido para a história.
 
-Adicionar múltiplos produtos ao pedido, especificando a quantidade.
+🏗️ Arquitetura e Estrutura
+Este projeto foi construído sobre uma arquitetura MVVM (Model-View-ViewModel), garantindo uma separação clara entre a interface, a lógica e os dados.
 
-Cálculo automático do valor total do pedido.
+View (.xaml): A interface do usuário. Simples e direta, apenas exibe os dados e envia comandos.
 
-Seleção da forma de pagamento (Dinheiro, Cartão, Boleto).
+ViewModel (.cs): O cérebro da aplicação. Contém a lógica de negócios, comandos para os botões e propriedades que a View "enxerga".
 
-Registro da data da venda e status (Pendente).
+Model (.cs): A representação dos dados (Pessoa, Produto, etc.). Pura e simples, sem nenhuma lógica.
 
-Finalização e salvamento do pedido.
+Services (.cs): Responsáveis por interagir com a persistência de dados (no nosso caso, arquivos .json).
 
-Arquitetura
-O sistema foi desenvolvido seguindo o padrão MVVM para separar a interface do usuário, a lógica de apresentação e os dados.
+🛠️ Tecnologias e Ferramentas
+Linguagem: C#
 
-Model: Representa as entidades de dados (Pessoa, Produto, Pedido, ItemPedido).
+Framework: WPF (.NET Framework 8.0)
 
-View: Define a interface do usuário (arquivos .xaml). Liga-se aos ViewModels através de Data Binding.
+Padrão de Arquitetura: MVVM (com classes auxiliares ViewModelBase e RelayCommand)
 
-ViewModel: Contém a lógica de apresentação, expondo comandos e propriedades para a View. Orquestra a interação entre a View e os Services.
+Persistência: Arquivos JSON, manipulados com System.Text.Json
 
-Services: Contém a lógica de negócio e a manipulação de dados (leitura e escrita de arquivos .json).
+▶️ Como Executar
+Clone o projeto para a sua máquina.
 
-Tecnologias Utilizadas
-WPF (.NET Framework 8.0): Framework para a criação da interface de usuário desktop.
+Abra a solução (.sln) no Visual Studio.
 
-C#: Linguagem de programação principal.
+Pressione F5 e pronto! A aplicação estará rodando.
 
-MVVM Light Toolkit (ou implementação própria de ViewModelBase e RelayCommand): Para auxiliar na implementação do padrão MVVM.
-
-System.Text.Json: Para serialização e desserialização de dados em formato JSON.
-
-Como Executar
-Clone o repositório do projeto.
-
-Abra a solução (.sln file) no Visual Studio.
-
-Certifique-se de que o projeto principal (SistemaDeGestao) esteja definido como o projeto de inicialização (clique com o botão direito no projeto no Solution Explorer e selecione "Definir como Projeto de Inicialização").
-
-Pressione F5 ou clique no botão "Iniciar" para executar a aplicação.
-
-Estrutura do Projeto
-SistemaDeGestao/: Raiz do projeto.
-
-Data/: Contém os arquivos .json para persistência de dados.
-
-pessoas.json
-
-produtos.json
-
-pedidos.json
-
-Models/: Define as classes de modelo (Pessoa, Produto, Pedido, ItemPedido).
-
-Services/: Contém as classes de serviço (PessoaService, ProdutoService, PedidoService) com a lógica de negócio.
-
-ViewModels/: Contém as classes ViewModel (MainViewModel, PessoaViewModel, ProdutoViewModel, PedidoViewModel) e classes auxiliares (ViewModelBase, RelayCommand).
-
-Views/: Contém as interfaces de usuário (MainWindow.xaml, PessoaView.xaml, ProdutoView.xaml, PedidoView.xaml).
-
-App.xaml / App.xaml.cs: Lógica de inicialização da aplicação.
-
-MainWindow.xaml / MainWindow.xaml.cs: Janela principal da aplicação.
-
-SistemaDeGestao.csproj: Arquivo de projeto do C#.
-
-README.md: Este arquivo.
+🙋‍♂️ Autor
+Lucas Pitas
