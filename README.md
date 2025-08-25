@@ -1,5 +1,4 @@
 🚀 Sistema de Gerenciamento de Vendas
-"O desafio era grande, a solução é elegante. Uma aplicação WPF para gerenciar vendas, feita com o poder do MVVM."
 
 Este projeto é uma aplicação desktop desenvolvida em C# com WPF e o padrão MVVM, focada na gestão completa de clientes, produtos e pedidos. Ele demonstra como uma arquitetura bem-definida pode tornar o código limpo, modular e fácil de manter.
 
