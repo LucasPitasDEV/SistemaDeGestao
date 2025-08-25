@@ -21,5 +21,6 @@ namespace SistemaDeGestao.Models
         public string FormaPagamento { get; set; }
 
         public string Status { get; set; }
+        public List<ItemPedido> Produtos { get; internal set; }
     }
 }

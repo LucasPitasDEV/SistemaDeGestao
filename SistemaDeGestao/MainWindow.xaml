@@ -4,9 +4,42 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SistemaDeGestao"
+        xmlns:viewmodels="clr-namespace:SistemaDeGestao.ViewModels"
+        xmlns:views="clr-namespace:SistemaDeGestao.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Gerenciamento de Vendas" Height="600" Width="900">
 
+    <Window.DataContext>
+        <viewmodels:MainViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center" Margin="10">
+            <Button Content="Pessoas" Width="100" Margin="5"
+                    Command="{Binding NavigateToPessoasCommand}"/>
+            <Button Content="Produtos" Width="100" Margin="5"
+                    Command="{Binding NavigateToProdutosCommand}"/>
+            <Button Content="Pedidos" Width="100" Margin="5"
+                    Command="{Binding NavigateToPedidosCommand}"/>
+        </StackPanel>
+
+        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type viewmodels:PessoaViewModel}">
+                    <views:PessoaView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:ProdutoViewModel}">
+                    <views:ProdutoView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:PedidoViewModel}">
+                    <views:PedidoView/>
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
     </Grid>
 </Window>

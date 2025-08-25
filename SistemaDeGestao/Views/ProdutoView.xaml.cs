@@ -1,4 +1,8 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,16 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SistemaDeGestao
+namespace SistemaDeGestao.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interação lógica para ProdutoView.xam
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ProdutoView : UserControl
     {
-        public MainWindow()
+        public ProdutoView()
         {
-           
+            InitializeComponent();
         }
     }
 }
