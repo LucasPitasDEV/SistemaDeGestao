@@ -13,6 +13,33 @@
         <viewmodels:MainViewModel/>
     </Window.DataContext>
 
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#E4003A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E4003A"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseCaptured" Value="True">
+                    <Setter Property="Background" Value="#4447EA"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="DataGridRow">
+            <Setter Property="BorderBrush" Value="LightGray"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#4447EA"/>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#4447EA"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -26,6 +53,8 @@
                     Command="{Binding NavigateToProdutosCommand}"/>
             <Button Content="Pedidos" Width="100" Margin="5"
                     Command="{Binding NavigateToPedidosCommand}"/>
+            <Button Content="Controle de Pedidos" Width="150" Margin="5" 
+                    Command="{Binding NavigateToPedidosPessoaCommand}"/>
         </StackPanel>
 
         <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}">
@@ -38,6 +67,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:PedidoViewModel}">
                     <views:PedidoView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:PedidoPessoaViewModel}">
+                    <views:PedidoPessoaView/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

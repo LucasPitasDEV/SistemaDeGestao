@@ -43,7 +43,7 @@
                         <DataGridTextColumn Header="Produto" Binding="{Binding Produto.Nome}" Width="*"/>
                         <DataGridTextColumn Header="Quantidade" Binding="{Binding Quantidade}" Width="100"/>
                         <DataGridTextColumn Header="Valor Unit." Binding="{Binding Produto.Valor, StringFormat=C2}" Width="100"/>
-                        <DataGridTextColumn Header="Valor Total" Binding="{Binding ValorTotal, StringFormat=C2}" Width="100"/>
+                        <DataGridTextColumn Header="Valor Total" Binding="{Binding TotalOrcamento, StringFormat=C2}" Width="100"/>
                         <DataGridTemplateColumn Width="70">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

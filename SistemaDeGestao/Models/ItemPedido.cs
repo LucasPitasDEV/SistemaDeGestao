@@ -1,15 +1,41 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using SistemaDeGestao.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SistemaDeGestao.Models
 {
-    public class ItemPedido
+    public class ItemPedido : ViewModelBase
     {
+        private int _quantidade;
         public Produto Produto { get; set; }
 
-        public int Quantidade { get; set; }
+        public int Quantidade
+        {
+            get => _quantidade;
+            set
+            {
+                // Verifica se o valor mudou para evitar loop
+                if (_quantidade == value) return;
+
+                _quantidade = value;
+
+                // Notifica a View que a Quantidade mudou
+                OnPropertyChanged();
+
+                // Notifica que a propriedade ValorTotal do item também mudou
+                OnPropertyChanged(nameof(TotalOrcamento));
+            }
+        }
+
+        public decimal ValorUnitario { get; set; }
+
+        [NotMapped]
+        public decimal TotalOrcamento {
+            get { return Quantidade * ValorUnitario; } }
     }
 }

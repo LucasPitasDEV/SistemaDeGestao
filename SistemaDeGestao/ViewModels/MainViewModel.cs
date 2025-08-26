@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SistemaDeGestao.Models;
 using System.Windows.Input;
 
 namespace SistemaDeGestao.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private ViewModelBase _currentViewModel;
+        private readonly PessoaViewModel _pessoaViewModel;
+        private readonly ProdutoViewModel _produtoViewModel;
+        private readonly PedidoViewModel _pedidoViewModel;
+        private readonly PedidoPessoaViewModel _pedidoPessoaViewModel;
 
+        private ViewModelBase _currentViewModel;
         public ViewModelBase CurrentViewModel
         {
             get => _currentViewModel;
@@ -24,16 +24,25 @@ namespace SistemaDeGestao.ViewModels
         public ICommand NavigateToPessoasCommand { get; }
         public ICommand NavigateToProdutosCommand { get; }
         public ICommand NavigateToPedidosCommand { get; }
+        public ICommand NavigateToPedidosPessoaCommand { get; }
 
         public MainViewModel()
         {
-            // Inicialize os comandos de navegação
-            NavigateToPessoasCommand = new RelayCommand(p => CurrentViewModel = new PessoaViewModel());
-            NavigateToProdutosCommand = new RelayCommand(p => CurrentViewModel = new ProdutoViewModel());
-            NavigateToPedidosCommand = new RelayCommand(p => CurrentViewModel = new PedidoViewModel());
+            _pessoaViewModel = new PessoaViewModel();
+            _produtoViewModel = new ProdutoViewModel();
+            _pedidoViewModel = new PedidoViewModel();
+            _pedidoPessoaViewModel = new PedidoPessoaViewModel();
+            _pessoaViewModel.NavigateToPedidos += OnNavigateToPedidos;
+            NavigateToPessoasCommand = new RelayCommand(p => CurrentViewModel = _pessoaViewModel);
+            NavigateToProdutosCommand = new RelayCommand(p => CurrentViewModel = _produtoViewModel);
+            NavigateToPedidosCommand = new RelayCommand(p => CurrentViewModel = _pedidoViewModel);
+            NavigateToPedidosPessoaCommand = new RelayCommand(p => CurrentViewModel = _pedidoPessoaViewModel);
+            CurrentViewModel = _pessoaViewModel;
+        }
 
-            // Tela inicial
-            CurrentViewModel = new PessoaViewModel();
+        private void OnNavigateToPedidos(Pessoa pessoa)
+        {
+            CurrentViewModel = new PedidoViewModel(pessoa);
         }
     }
 }

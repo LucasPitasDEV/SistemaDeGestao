@@ -112,6 +112,25 @@ namespace SistemaDeGestao.ViewModels
 
             // Associa um evento para recalcular o total quando a lista de itens muda
             ItensDoPedido.CollectionChanged += (sender, e) => CalcularValorTotal();
+
+        }
+
+        public PedidoViewModel(Pessoa pessoa)
+        {
+            // Inicializa as listas de dados
+            Pessoas = new ObservableCollection<Pessoa>(_pessoaService.GetAll());
+            Produtos = new ObservableCollection<Produto>(_produtoService.GetAll());
+            FormasPagamento = new ObservableCollection<string> { "Dinheiro", "Cartão", "Boleto" };
+
+            ItensDoPedido = new ObservableCollection<ItemPedido>();
+
+            // Define os comandos
+            AdicionarItemCommand = new RelayCommand(AdicionarItemExecute, AdicionarItemCanExecute);
+            FinalizarPedidoCommand = new RelayCommand(FinalizarPedidoExecute, FinalizarPedidoCanExecute);
+
+            // Associa um evento para recalcular o total quando a lista de itens muda
+            ItensDoPedido.CollectionChanged += (sender, e) => CalcularValorTotal();
+
         }
 
         // Métodos para os Comandos
@@ -129,7 +148,8 @@ namespace SistemaDeGestao.ViewModels
                 ItensDoPedido.Add(new ItemPedido
                 {
                     Produto = ProdutoParaAdicionar,
-                    Quantidade = QuantidadeParaAdicionar
+                    Quantidade = QuantidadeParaAdicionar,
+                    ValorUnitario = ProdutoParaAdicionar.Valor
                 });
             }
 
@@ -138,6 +158,7 @@ namespace SistemaDeGestao.ViewModels
             QuantidadeParaAdicionar = 0;
 
             CalcularValorTotal();
+
         }
 
         private bool AdicionarItemCanExecute(object parameter)

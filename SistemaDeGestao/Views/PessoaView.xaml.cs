@@ -24,5 +24,65 @@ namespace SistemaDeGestao.Views
         {
             InitializeComponent();
         }
+
+        public static readonly DependencyProperty CpfMaskedTextProperty =
+            DependencyProperty.RegisterAttached("CpfMaskedText", typeof(string), typeof(PessoaView), new PropertyMetadata(string.Empty, OnCpfMaskedTextChanged));
+
+        public static string GetCpfMaskedText(DependencyObject obj)
+        {
+            return (string)obj.GetValue(CpfMaskedTextProperty);
+        }
+
+        public static void SetCpfMaskedText(DependencyObject obj, string value)
+        {
+            obj.SetValue(CpfMaskedTextProperty, value);
+        }
+
+        private static void OnCpfMaskedTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var textBox = d as TextBox;
+            if (textBox == null) return;
+
+            textBox.TextChanged -= TextBox_TextChanged;
+            textBox.TextChanged += TextBox_TextChanged;
+        }
+
+        private static void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox == null) return;
+
+            var unmaskedText = new string(textBox.Text.Where(char.IsDigit).ToArray());
+
+            // Impede que o CPF tenha mais de 11 dígitos
+            if (unmaskedText.Length > 11)
+            {
+                unmaskedText = unmaskedText.Substring(0, 11);
+            }
+
+            var maskedText = unmaskedText;
+
+            // Adiciona a máscara
+            if (maskedText.Length > 3)
+            {
+                maskedText = maskedText.Insert(3, ".");
+            }
+            if (maskedText.Length > 7)
+            {
+                maskedText = maskedText.Insert(7, ".");
+            }
+            if (maskedText.Length > 11)
+            {
+                maskedText = maskedText.Insert(11, "-");
+            }
+
+            // Remove temporariamente o evento para evitar um loop infinito
+            textBox.TextChanged -= TextBox_TextChanged;
+            textBox.Text = maskedText;
+            textBox.TextChanged += TextBox_TextChanged;
+
+            // Coloca o cursor no final do texto
+            textBox.CaretIndex = textBox.Text.Length;
+        }
     }
 }
