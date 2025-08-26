@@ -43,7 +43,7 @@
                 <TextBlock Text="Nome:" VerticalAlignment="Center" Margin="0,0,5,0"/>
                 <TextBox Width="150" Text="{Binding NomeFiltro}"/>
                 <TextBlock Text="CPF:" VerticalAlignment="Center" Margin="10,0,5,0"/>
-                <TextBox Width="150" Text="{Binding CpfFiltro}"/>
+                <TextBox Width="150" Text="{Binding CpfFiltro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" views:PessoaView.CpfMaskedText="{Binding CpfFiltro}"/>
                 <Button Content="Buscar" Width="80" Margin="10,0,0,0" Command="{Binding BuscarPessoasCommand}"/>
             </StackPanel>
 

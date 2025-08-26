@@ -15,6 +15,7 @@ namespace SistemaDeGestao.ViewModels
         private bool _showOnlyEntregues;
         private bool _showOnlyPagos;
         private bool _showOnlyPendentes;
+        private bool _showOnlyEnviados;
 
         public bool ShowOnlyEntregues
         {
@@ -32,6 +33,11 @@ namespace SistemaDeGestao.ViewModels
         {
             get => _showOnlyPendentes;
             set { _showOnlyPendentes = value; OnPropertyChanged(); FiltrarPedidos(); }
+        }
+        public bool ShowOnlyEnviados
+        {
+            get => _showOnlyEnviados;
+            set { _showOnlyEnviados = value; OnPropertyChanged(); FiltrarPedidos(); }
         }
 
         // Lista de todas as pessoas para a ComboBox
@@ -89,52 +95,62 @@ namespace SistemaDeGestao.ViewModels
                 query = query.Where(p => p.Pessoa.Id == _pessoaSelecionada.Id);
             }
 
+            var statusSelecionados = new List<string>();
             if (ShowOnlyEntregues)
             {
-                query = query.Where(p => p.Status == "Entregue");
+                statusSelecionados.Add("Entregue");
             }
             if (ShowOnlyPagos)
             {
-                query = query.Where(p => p.Status == "Pago");
+                statusSelecionados.Add("Pago");
             }
             if (ShowOnlyPendentes)
             {
-                query = query.Where(p => p.Status == "Pendente de Pagamento");
+                statusSelecionados.Add("Pendente");
+            }
+            if (ShowOnlyEnviados)
+            {
+                statusSelecionados.Add("Enviado");
+            }
+
+            if (statusSelecionados.Any())
+            {
+                query = query.Where(p => statusSelecionados.Contains(p.Status));
             }
 
             Pedidos = new ObservableCollection<Pedido>(query.ToList());
         }
 
-        // Lógica para marcar como pago
         private void MarcarComoPagoExecute(object parameter)
         {
             var pedido = (Pedido)parameter;
             if (pedido != null)
             {
-                pedido.Status = "Pago";
-                OnPropertyChanged(nameof(Pedidos));
+                
+                _pedidoService.UpdateStatus(pedido.Id, "Pago");
+                FiltrarPedidos();
             }
         }
 
-        // Lógica para marcar como enviado
         private void MarcarComoEnviadoExecute(object parameter)
         {
             var pedido = (Pedido)parameter;
             if (pedido != null)
             {
-                pedido.Status = "Enviado";
-                OnPropertyChanged(nameof(Pedidos));
+                
+                _pedidoService.UpdateStatus(pedido.Id, "Enviado");
+                FiltrarPedidos();
             }
         }
 
-        // Lógica para marcar como entregue
         private void MarcarComoEntregueExecute(object parameter)
         {
             var pedido = (Pedido)parameter;
             if (pedido != null)
             {
-                pedido.Status = "Entregue";
-                OnPropertyChanged(nameof(Pedidos));
+                
+                _pedidoService.UpdateStatus(pedido.Id, "Entregue");
+                FiltrarPedidos();
             }
         }
     }

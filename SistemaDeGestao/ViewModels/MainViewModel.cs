@@ -9,6 +9,7 @@ namespace SistemaDeGestao.ViewModels
         private readonly ProdutoViewModel _produtoViewModel;
         private readonly PedidoViewModel _pedidoViewModel;
         private readonly PedidoPessoaViewModel _pedidoPessoaViewModel;
+        private readonly HomeViewModel _homeViewModel;
 
         private ViewModelBase _currentViewModel;
         public ViewModelBase CurrentViewModel
@@ -21,6 +22,7 @@ namespace SistemaDeGestao.ViewModels
             }
         }
 
+        public ICommand NavigateToInicioCommand { get; }
         public ICommand NavigateToPessoasCommand { get; }
         public ICommand NavigateToProdutosCommand { get; }
         public ICommand NavigateToPedidosCommand { get; }
@@ -28,16 +30,18 @@ namespace SistemaDeGestao.ViewModels
 
         public MainViewModel()
         {
+            _homeViewModel = new HomeViewModel();
             _pessoaViewModel = new PessoaViewModel();
             _produtoViewModel = new ProdutoViewModel();
             _pedidoViewModel = new PedidoViewModel();
             _pedidoPessoaViewModel = new PedidoPessoaViewModel();
             _pessoaViewModel.NavigateToPedidos += OnNavigateToPedidos;
+            NavigateToInicioCommand = new RelayCommand(p => CurrentViewModel = _homeViewModel);
             NavigateToPessoasCommand = new RelayCommand(p => CurrentViewModel = _pessoaViewModel);
             NavigateToProdutosCommand = new RelayCommand(p => CurrentViewModel = _produtoViewModel);
             NavigateToPedidosCommand = new RelayCommand(p => CurrentViewModel = _pedidoViewModel);
             NavigateToPedidosPessoaCommand = new RelayCommand(p => CurrentViewModel = _pedidoPessoaViewModel);
-            CurrentViewModel = _pessoaViewModel;
+            CurrentViewModel = _homeViewModel;
         }
 
         private void OnNavigateToPedidos(Pessoa pessoa)

@@ -28,6 +28,7 @@
                     <CheckBox Content="Apenas Entregues" IsChecked="{Binding ShowOnlyEntregues}" Margin="0,0,10,0" VerticalAlignment="Center"/>
                     <CheckBox Content="Apenas Pagos" IsChecked="{Binding ShowOnlyPagos}" Margin="0,0,10,0" VerticalAlignment="Center"/>
                     <CheckBox Content="Apenas Pendentes" IsChecked="{Binding ShowOnlyPendentes}" VerticalAlignment="Center"/>
+                    <CheckBox Content="Apenas Enviados" IsChecked="{Binding ShowOnlyEnviados}" VerticalAlignment="Center"/>
                 </StackPanel>
             </StackPanel>
         </Border>

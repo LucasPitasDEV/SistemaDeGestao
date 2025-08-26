@@ -47,6 +47,8 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center" Margin="10">
+            <Button Content="Início" Width="100" Margin="5"
+                    Command="{Binding NavigateToInicioCommand}"/>
             <Button Content="Pessoas" Width="100" Margin="5"
                     Command="{Binding NavigateToPessoasCommand}"/>
             <Button Content="Produtos" Width="100" Margin="5"
@@ -59,6 +61,9 @@
 
         <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}">
             <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+                    <views:HomeView/>
+                </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:PessoaViewModel}">
                     <views:PessoaView/>
                 </DataTemplate>
