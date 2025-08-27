@@ -19,15 +19,10 @@ namespace SistemaDeGestao.Models
             get => _quantidade;
             set
             {
-                // Verifica se o valor mudou para evitar loop
                 if (_quantidade == value) return;
 
                 _quantidade = value;
-
-                // Notifica a View que a Quantidade mudou
                 OnPropertyChanged();
-
-                // Notifica que a propriedade ValorTotal do item também mudou
                 OnPropertyChanged(nameof(TotalOrcamento));
             }
         }

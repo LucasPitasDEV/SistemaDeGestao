@@ -12,12 +12,10 @@ namespace SistemaDeGestao.ViewModels
 {
     public class PedidoViewModel : ViewModelBase
     {
-        // Serviços para buscar e salvar dados
         private readonly PedidoService _pedidoService = new PedidoService();
         private readonly PessoaService _pessoaService = new PessoaService();
         private readonly ProdutoService _produtoService = new ProdutoService();
 
-        // Propriedades para Binding com a View
         private Pessoa _pessoaSelecionada;
         private Produto _produtoParaAdicionar;
         private int _quantidadeParaAdicionar;
@@ -25,12 +23,10 @@ namespace SistemaDeGestao.ViewModels
         private string _formaPagamentoSelecionada;
         private decimal _valorTotal;
 
-        // Listas para ComboBoxes e DataGrid
         public ObservableCollection<Pessoa> Pessoas { get; set; }
         public ObservableCollection<Produto> Produtos { get; set; }
         public ObservableCollection<string> FormasPagamento { get; set; }
 
-        // Propriedades Públicas (Binding)
         public Pessoa PessoaSelecionada
         {
             get => _pessoaSelecionada;
@@ -38,7 +34,6 @@ namespace SistemaDeGestao.ViewModels
             {
                 _pessoaSelecionada = value;
                 OnPropertyChanged();
-                // Lógica para carregar pedidos da pessoa se necessário
             }
         }
 
@@ -59,7 +54,6 @@ namespace SistemaDeGestao.ViewModels
             {
                 _quantidadeParaAdicionar = value;
                 OnPropertyChanged();
-                // Lógica para validação (ex: quantidade > 0)
             }
         }
 
@@ -93,47 +87,39 @@ namespace SistemaDeGestao.ViewModels
             }
         }
 
-        // Comandos para as ações da View
         public ICommand AdicionarItemCommand { get; }
         public ICommand FinalizarPedidoCommand { get; }
 
         public PedidoViewModel()
         {
-            // Inicializa as listas de dados
             Pessoas = new ObservableCollection<Pessoa>(_pessoaService.GetAll());
             Produtos = new ObservableCollection<Produto>(_produtoService.GetAll());
             FormasPagamento = new ObservableCollection<string> { "Dinheiro", "Cartão", "Boleto" };
 
             ItensDoPedido = new ObservableCollection<ItemPedido>();
 
-            // Define os comandos
             AdicionarItemCommand = new RelayCommand(AdicionarItemExecute, AdicionarItemCanExecute);
             FinalizarPedidoCommand = new RelayCommand(FinalizarPedidoExecute, FinalizarPedidoCanExecute);
 
-            // Associa um evento para recalcular o total quando a lista de itens muda
             ItensDoPedido.CollectionChanged += (sender, e) => CalcularValorTotal();
 
         }
 
         public PedidoViewModel(Pessoa pessoa)
         {
-            // Inicializa as listas de dados
             Pessoas = new ObservableCollection<Pessoa>(_pessoaService.GetAll());
             Produtos = new ObservableCollection<Produto>(_produtoService.GetAll());
             FormasPagamento = new ObservableCollection<string> { "Dinheiro", "Cartão", "Boleto" };
 
             ItensDoPedido = new ObservableCollection<ItemPedido>();
 
-            // Define os comandos
             AdicionarItemCommand = new RelayCommand(AdicionarItemExecute, AdicionarItemCanExecute);
             FinalizarPedidoCommand = new RelayCommand(FinalizarPedidoExecute, FinalizarPedidoCanExecute);
 
-            // Associa um evento para recalcular o total quando a lista de itens muda
             ItensDoPedido.CollectionChanged += (sender, e) => CalcularValorTotal();
 
         }
 
-        // Métodos para os Comandos
         private void AdicionarItemExecute(object parameter)
         {
             if (ProdutoParaAdicionar == null || QuantidadeParaAdicionar <= 0) return;
@@ -153,7 +139,6 @@ namespace SistemaDeGestao.ViewModels
                 });
             }
 
-            // Limpa os campos para o próximo item
             ProdutoParaAdicionar = null;
             QuantidadeParaAdicionar = 0;
 
@@ -182,9 +167,7 @@ namespace SistemaDeGestao.ViewModels
 
             _pedidoService.Add(novoPedido);
 
-            // Opcional: Limpar a tela para um novo pedido
             LimparFormulario();
-            // Opcional: Exibir uma mensagem de sucesso
         }
 
         private bool FinalizarPedidoCanExecute(object parameter)
@@ -194,7 +177,6 @@ namespace SistemaDeGestao.ViewModels
                    !string.IsNullOrWhiteSpace(FormaPagamentoSelecionada);
         }
 
-        // Métodos Auxiliares
         private void CalcularValorTotal()
         {
             ValorTotal = ItensDoPedido.Sum(item => item.Produto.Valor * item.Quantidade);

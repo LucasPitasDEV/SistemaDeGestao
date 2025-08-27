@@ -15,23 +15,19 @@ namespace SistemaDeGestao.ViewModels
     {
         private readonly ProdutoService _produtoService = new ProdutoService();
 
-        // Propriedades para os filtros de busca
         private string _nomeFiltro;
         private string _codigoFiltro;
         private decimal? _valorMinFiltro;
         private decimal? _valorMaxFiltro;
 
-        // Propriedades para o DataGrid
         private ObservableCollection<Produto> _produtos;
         private Produto _produtoSelecionado;
 
-        // Propriedades para a edição (podem ser um único objeto ou campos separados)
         private int _id;
         private string _nome;
         private string _codigo;
         private decimal _valor;
 
-        // Listas para a UI
         public ObservableCollection<Produto> Produtos
         {
             get => _produtos;
@@ -49,7 +45,6 @@ namespace SistemaDeGestao.ViewModels
             {
                 _produtoSelecionado = value;
                 OnPropertyChanged();
-                // Ao selecionar, preenche os campos para edição
                 if (value != null)
                 {
                     Id = value.Id;
@@ -60,7 +55,6 @@ namespace SistemaDeGestao.ViewModels
             }
         }
 
-        // Propriedades para os campos de edição
         public int Id
         {
             get => _id;
@@ -85,7 +79,6 @@ namespace SistemaDeGestao.ViewModels
             set { _valor = value; OnPropertyChanged(); }
         }
 
-        // Propriedades para os campos de filtro
         public string NomeFiltro
         {
             get => _nomeFiltro;
@@ -110,7 +103,6 @@ namespace SistemaDeGestao.ViewModels
             set { _valorMaxFiltro = value; OnPropertyChanged(); }
         }
 
-        // Comandos
         public ICommand BuscarProdutosCommand { get; }
         public ICommand SalvarProdutoCommand { get; }
         public ICommand ExcluirProdutoCommand { get; }
@@ -118,17 +110,14 @@ namespace SistemaDeGestao.ViewModels
 
         public ProdutoViewModel()
         {
-            // Carrega todos os produtos ao iniciar a tela
             Produtos = new ObservableCollection<Produto>(_produtoService.GetAll());
 
-            // Define os comandos
             BuscarProdutosCommand = new RelayCommand(BuscarProdutosExecute);
             SalvarProdutoCommand = new RelayCommand(SalvarProdutoExecute, CanSalvarProduto);
             ExcluirProdutoCommand = new RelayCommand(ExcluirProdutoExecute, CanExcluirProduto);
             NovoProdutoCommand = new RelayCommand(NovoProdutoExecute);
         }
 
-        // Métodos de execução dos Comandos
         private void BuscarProdutosExecute(object parameter)
         {
             var produtosFiltrados = _produtoService.Search(NomeFiltro, CodigoFiltro, ValorMinFiltro, ValorMaxFiltro);
@@ -147,14 +136,12 @@ namespace SistemaDeGestao.ViewModels
 
             _produtoService.AddOrUpdate(produto);
 
-            // Atualiza a lista após salvar
             Produtos = new ObservableCollection<Produto>(_produtoService.GetAll());
-            NovoProdutoExecute(null); // Limpa o formulário
+            NovoProdutoExecute(null);
         }
 
         private bool CanSalvarProduto(object parameter)
         {
-            // Regras de validação
             return !string.IsNullOrWhiteSpace(Nome) &&
                    !string.IsNullOrWhiteSpace(Codigo) &&
                    Valor >= 0;
@@ -166,7 +153,7 @@ namespace SistemaDeGestao.ViewModels
             {
                 _produtoService.Delete(ProdutoSelecionado.Id);
                 Produtos.Remove(ProdutoSelecionado);
-                NovoProdutoExecute(null); // Limpa o formulário
+                NovoProdutoExecute(null);
             }
         }
 
@@ -177,12 +164,11 @@ namespace SistemaDeGestao.ViewModels
 
         private void NovoProdutoExecute(object parameter)
         {
-            // Reseta os campos para um novo cadastro
             Id = 0;
             Nome = string.Empty;
             Codigo = string.Empty;
             Valor = 0;
-            ProdutoSelecionado = null; // Desseleciona no DataGrid
+            ProdutoSelecionado = null;
         }
     }
 }

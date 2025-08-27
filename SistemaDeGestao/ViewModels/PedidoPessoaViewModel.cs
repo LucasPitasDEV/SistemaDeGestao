@@ -11,7 +11,6 @@ namespace SistemaDeGestao.ViewModels
         private readonly PedidoService _pedidoService = new PedidoService();
         private readonly PessoaService _pessoaService = new PessoaService();
 
-        // Propriedades de filtro
         private bool _showOnlyEntregues;
         private bool _showOnlyPagos;
         private bool _showOnlyPendentes;
@@ -40,7 +39,6 @@ namespace SistemaDeGestao.ViewModels
             set { _showOnlyEnviados = value; OnPropertyChanged(); FiltrarPedidos(); }
         }
 
-        // Lista de todas as pessoas para a ComboBox
         private ObservableCollection<Pessoa> _pessoas;
         public ObservableCollection<Pessoa> Pessoas
         {
@@ -48,7 +46,6 @@ namespace SistemaDeGestao.ViewModels
             set { _pessoas = value; OnPropertyChanged(); }
         }
 
-        // A pessoa selecionada na ComboBox
         private Pessoa _pessoaSelecionada;
         public Pessoa PessoaSelecionada
         {
@@ -61,7 +58,6 @@ namespace SistemaDeGestao.ViewModels
             }
         }
 
-        // A lista de pedidos para a DataGrid
         private ObservableCollection<Pedido> _pedidos;
         public ObservableCollection<Pedido> Pedidos
         {
@@ -69,7 +65,6 @@ namespace SistemaDeGestao.ViewModels
             set { _pedidos = value; OnPropertyChanged(); }
         }
 
-        // Novos comandos para as ações por linha
         public ICommand MarcarComoPagoCommand { get; }
         public ICommand MarcarComoEnviadoCommand { get; }
         public ICommand MarcarComoEntregueCommand { get; }
@@ -79,7 +74,6 @@ namespace SistemaDeGestao.ViewModels
             Pessoas = new ObservableCollection<Pessoa>(_pessoaService.GetAll());
             Pedidos = new ObservableCollection<Pedido>(_pedidoService.GetAll());
 
-            // Inicializa os novos comandos
             MarcarComoPagoCommand = new RelayCommand(MarcarComoPagoExecute);
             MarcarComoEnviadoCommand = new RelayCommand(MarcarComoEnviadoExecute);
             MarcarComoEntregueCommand = new RelayCommand(MarcarComoEntregueExecute);

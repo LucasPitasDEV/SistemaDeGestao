@@ -1,7 +1,7 @@
 ﻿using SistemaDeGestao.Models;
 using SistemaDeGestao.Services;
 using System.Collections.ObjectModel;
-using System; // Importe o namespace System para usar o Action
+using System;
 using System.Linq;
 using System.Windows.Input;
 
@@ -11,7 +11,6 @@ namespace SistemaDeGestao.ViewModels
     {
         private readonly PessoaService _pessoaService = new PessoaService();
 
-        // Propriedades
         private ObservableCollection<Pessoa> _pessoas;
         private Pessoa _pessoaSelecionada;
         private string _nomeFiltro;
@@ -21,7 +20,6 @@ namespace SistemaDeGestao.ViewModels
         private string _cpf;
         private string _endereco;
 
-        // Propriedades Públicas com NotifyPropertyChanged
         public ObservableCollection<Pessoa> Pessoas
         {
             get => _pessoas;
@@ -38,7 +36,6 @@ namespace SistemaDeGestao.ViewModels
             {
                 _pessoaSelecionada = value;
                 OnPropertyChanged();
-                // Ao selecionar, preenche os campos para edição
                 if (value != null)
                 {
                     Id = value.Id;
@@ -79,28 +76,24 @@ namespace SistemaDeGestao.ViewModels
             set { _cpfFiltro = value; OnPropertyChanged(); }
         }
 
-        // Comandos
         public ICommand BuscarPessoasCommand { get; }
         public ICommand SalvarPessoaCommand { get; }
         public ICommand ExcluirPessoaCommand { get; }
         public ICommand NovaPessoaCommand { get; }
-        public ICommand VerPedidosCommand { get; } // NOVO: Comando para ver pedidos
+        public ICommand VerPedidosCommand { get; }
 
-        // Evento de navegação para o MainViewModel
-        public event Action<Pessoa> NavigateToPedidos; // NOVO: Evento para navegar
+        public event Action<Pessoa> NavigateToPedidos;
 
         public PessoaViewModel()
         {
-            // Inicializa os comandos
             Pessoas = new ObservableCollection<Pessoa>(_pessoaService.GetAll());
             BuscarPessoasCommand = new RelayCommand(BuscarPessoasExecute);
             SalvarPessoaCommand = new RelayCommand(SalvarPessoaExecute, CanSalvarPessoa);
             ExcluirPessoaCommand = new RelayCommand(ExcluirPessoaExecute, CanExcluirPessoa);
             NovaPessoaCommand = new RelayCommand(NovaPessoaExecute);
-            VerPedidosCommand = new RelayCommand(VerPedidosExecute, CanVerPedidos); // NOVO: Inicialização do comando
+            VerPedidosCommand = new RelayCommand(VerPedidosExecute, CanVerPedidos);
         }
 
-        // Métodos de Execução
         private void BuscarPessoasExecute(object parameter)
         {
             var pessoasFiltradas = _pessoaService.Search(NomeFiltro, CpfFiltro);
@@ -151,17 +144,14 @@ namespace SistemaDeGestao.ViewModels
             PessoaSelecionada = null;
         }
 
-        // NOVO: Método para executar o comando VerPedidos
         private void VerPedidosExecute(object parameter)
         {
             if (PessoaSelecionada != null)
             {
-                // Dispara o evento, enviando a pessoa selecionada
                 NavigateToPedidos?.Invoke(PessoaSelecionada);
             }
         }
 
-        // NOVO: Condição para o comando VerPedidos
         private bool CanVerPedidos(object parameter)
         {
             return PessoaSelecionada != null;

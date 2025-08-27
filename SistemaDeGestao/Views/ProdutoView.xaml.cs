@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace SistemaDeGestao.Views
 {
-    /// <summary>
-    /// Interação lógica para ProdutoView.xam
-    /// </summary>
     public partial class ProdutoView : UserControl
     {
         public ProdutoView()

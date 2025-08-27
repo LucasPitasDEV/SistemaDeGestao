@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace SistemaDeGestao.Views
 {
-    /// <summary>
-    /// Interação lógica para HomeView.xam
-    /// </summary>
     public partial class HomeView : UserControl
     {
         public HomeView()

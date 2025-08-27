@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace SistemaDeGestao.Views
 {
-    /// <summary>
-    /// Interação lógica para PessoaView.xam
-    /// </summary>
     public partial class PessoaView : UserControl
     {
         public PessoaView()
@@ -54,7 +51,6 @@ namespace SistemaDeGestao.Views
 
             var unmaskedText = new string(textBox.Text.Where(char.IsDigit).ToArray());
 
-            // Impede que o CPF tenha mais de 11 dígitos
             if (unmaskedText.Length > 11)
             {
                 unmaskedText = unmaskedText.Substring(0, 11);
@@ -62,7 +58,6 @@ namespace SistemaDeGestao.Views
 
             var maskedText = unmaskedText;
 
-            // Adiciona a máscara
             if (maskedText.Length > 3)
             {
                 maskedText = maskedText.Insert(3, ".");
@@ -76,12 +71,10 @@ namespace SistemaDeGestao.Views
                 maskedText = maskedText.Insert(11, "-");
             }
 
-            // Remove temporariamente o evento para evitar um loop infinito
             textBox.TextChanged -= TextBox_TextChanged;
             textBox.Text = maskedText;
             textBox.TextChanged += TextBox_TextChanged;
 
-            // Coloca o cursor no final do texto
             textBox.CaretIndex = textBox.Text.Length;
         }
     }

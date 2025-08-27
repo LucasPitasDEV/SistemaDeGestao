@@ -25,7 +25,6 @@ namespace SistemaDeGestao.Services
         {
             if (pessoa.Id == 0)
             {
-                // Lógica para gerar um novo ID.
                 pessoa.Id = _pessoas.Any() ? _pessoas.Max(p => p.Id) + 1 : 1;
                 _pessoas.Add(pessoa);
             }
@@ -48,7 +47,6 @@ namespace SistemaDeGestao.Services
             _dataService.SaveData(_pessoas);
         }
 
-        // Implemente a lógica de busca com LINQ
         public List<Pessoa> Search(string nome, string cpf)
         {
             var query = _pessoas.AsQueryable();

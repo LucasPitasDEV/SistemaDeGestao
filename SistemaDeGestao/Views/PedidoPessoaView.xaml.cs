@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace SistemaDeGestao.Views
 {
-    /// <summary>
-    /// Interação lógica para PedidoPessoaView.xam
-    /// </summary>
     public partial class PedidoPessoaView : UserControl
     {
         public PedidoPessoaView()
