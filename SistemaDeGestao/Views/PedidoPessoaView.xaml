@@ -27,8 +27,8 @@
                     <TextBlock Text="Filtros:" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center"/>
                     <CheckBox Content="Apenas Entregues" IsChecked="{Binding ShowOnlyEntregues}" Margin="0,0,10,0" VerticalAlignment="Center"/>
                     <CheckBox Content="Apenas Pagos" IsChecked="{Binding ShowOnlyPagos}" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                    <CheckBox Content="Apenas Pendentes" IsChecked="{Binding ShowOnlyPendentes}" VerticalAlignment="Center"/>
-                    <CheckBox Content="Apenas Enviados" IsChecked="{Binding ShowOnlyEnviados}" VerticalAlignment="Center"/>
+                    <CheckBox Content="Apenas Pendentes" IsChecked="{Binding ShowOnlyPendentes}" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                    <CheckBox Content="Apenas Enviados" IsChecked="{Binding ShowOnlyEnviados}" Margin="0,0,10,0" VerticalAlignment="Center"/>
                 </StackPanel>
             </StackPanel>
         </Border>
@@ -40,9 +40,9 @@
                   Height="450">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID do Pedido" Binding="{Binding Id}" Width="Auto"/>
-                <DataGridTextColumn Header="Data da Venda" Binding="{Binding DataDaVenda, StringFormat='dd/MM/yyyy'}" Width="*"/>
+                <DataGridTextColumn Header="Data da Venda" Binding="{Binding DataVenda, StringFormat='dd/MM/yyyy'}" Width="*"/>
                 <DataGridTextColumn Header="Valor Total" Binding="{Binding ValorTotal, StringFormat='C'}" Width="*"/>
-                <DataGridTextColumn Header="Forma de Pagamento" Binding="{Binding FormaDePagamento}" Width="*"/>
+                <DataGridTextColumn Header="Forma de Pagamento" Binding="{Binding FormaPagamento}" Width="*"/>
                 <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
 
                 <DataGridTemplateColumn Header="Ações" Width="*">
@@ -50,14 +50,17 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button Content="Pago" Margin="5"
-                                        Command="{Binding DataContext.MarcarComoPagoCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                        CommandParameter="{Binding}"/>
+                        Command="{Binding DataContext.MarcarComoPagoCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                        CommandParameter="{Binding}"
+                        IsEnabled="{Binding PodeMarcarComoPago}"/>
                                 <Button Content="Enviado" Margin="5"
-                                        Command="{Binding DataContext.MarcarComoEnviadoCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                        CommandParameter="{Binding}"/>
+                        Command="{Binding DataContext.MarcarComoEnviadoCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                        CommandParameter="{Binding}"
+                        IsEnabled="{Binding PodeMarcarComoEnviado}"/>
                                 <Button Content="Entregue" Margin="5"
-                                        Command="{Binding DataContext.MarcarComoEntregueCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                        CommandParameter="{Binding}"/>
+                        Command="{Binding DataContext.MarcarComoEntregueCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                        CommandParameter="{Binding}"
+                        IsEnabled="{Binding PodeMarcarComoEntregue}"/>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

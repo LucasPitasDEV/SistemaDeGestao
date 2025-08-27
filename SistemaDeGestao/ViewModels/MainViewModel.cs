@@ -1,4 +1,6 @@
 ﻿using SistemaDeGestao.Models;
+using SistemaDeGestao.Services;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace SistemaDeGestao.ViewModels
@@ -30,6 +32,12 @@ namespace SistemaDeGestao.ViewModels
 
         public MainViewModel()
         {
+            _pessoaViewModel = new PessoaViewModel();
+            _produtoViewModel = new ProdutoViewModel();
+            
+
+            
+
             _homeViewModel = new HomeViewModel();
             _pessoaViewModel = new PessoaViewModel();
             _produtoViewModel = new ProdutoViewModel();
@@ -37,10 +45,26 @@ namespace SistemaDeGestao.ViewModels
             _pedidoPessoaViewModel = new PedidoPessoaViewModel();
             _pessoaViewModel.NavigateToPedidos += OnNavigateToPedidos;
             NavigateToInicioCommand = new RelayCommand(p => CurrentViewModel = _homeViewModel);
-            NavigateToPessoasCommand = new RelayCommand(p => CurrentViewModel = _pessoaViewModel);
-            NavigateToProdutosCommand = new RelayCommand(p => CurrentViewModel = _produtoViewModel);
-            NavigateToPedidosCommand = new RelayCommand(p => CurrentViewModel = _pedidoViewModel);
-            NavigateToPedidosPessoaCommand = new RelayCommand(p => CurrentViewModel = _pedidoPessoaViewModel);
+            NavigateToPessoasCommand = new RelayCommand(p =>
+            {
+                _pessoaViewModel.LoadPessoas();
+                CurrentViewModel = _pessoaViewModel;
+            });
+            NavigateToProdutosCommand = new RelayCommand(p =>
+            {
+                _produtoViewModel.LoadProdutos();
+                CurrentViewModel = _produtoViewModel;
+            });
+            NavigateToPedidosCommand = new RelayCommand(p =>
+            {
+                _pedidoViewModel.LoadPedido();
+                CurrentViewModel = _pedidoViewModel;
+            });
+            NavigateToPedidosPessoaCommand = new RelayCommand(p =>
+            {
+                _pedidoPessoaViewModel.LoadPedidoPessoa();
+                CurrentViewModel = _pedidoPessoaViewModel;
+            });
             CurrentViewModel = _homeViewModel;
         }
 

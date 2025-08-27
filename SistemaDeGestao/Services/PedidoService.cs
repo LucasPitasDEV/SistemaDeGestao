@@ -19,6 +19,7 @@ namespace SistemaDeGestao.Services
 
         public List<Pedido> GetAll()
         {
+            _pedidos = _dataService.LoadData();
             return _pedidos;
         }
 

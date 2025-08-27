@@ -189,5 +189,15 @@ namespace SistemaDeGestao.ViewModels
             FormaPagamentoSelecionada = null;
             ValorTotal = 0;
         }
+
+        public void LoadPedido()
+        {
+            Pessoas = new ObservableCollection<Pessoa>(_pessoaService.GetAll());
+            Produtos = new ObservableCollection<Produto>(_produtoService.GetAll());
+            ItensDoPedido.Clear();
+            PessoaSelecionada = null;
+            FormaPagamentoSelecionada = null;
+            ValorTotal = 0;
+        }
     }
 }

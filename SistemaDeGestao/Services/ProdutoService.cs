@@ -19,6 +19,7 @@ namespace SistemaDeGestao.Services
 
         public List<Produto> GetAll()
         {
+            _produtos = _dataService.LoadData();
             return _produtos;
         }
 

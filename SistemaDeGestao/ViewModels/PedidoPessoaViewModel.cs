@@ -147,5 +147,11 @@ namespace SistemaDeGestao.ViewModels
                 FiltrarPedidos();
             }
         }
+
+        public void LoadPedidoPessoa()
+        {
+            Pessoas = new ObservableCollection<Pessoa>(_pessoaService.GetAll());
+            Pedidos = new ObservableCollection<Pedido>(_pedidoService.GetAll());
+        }
     }
 }

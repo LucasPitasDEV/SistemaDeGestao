@@ -23,7 +23,7 @@
                     <TextBox Width="200" Text="{Binding Codigo}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <TextBlock Text="Valor:" VerticalAlignment="Center" Width="80"/>
+                    <TextBlock Text="Valor (Ex.R$0.00):" VerticalAlignment="Center" Width="90"/>
                     <TextBox Width="100" Text="{Binding Valor}"/>
                 </StackPanel>
 

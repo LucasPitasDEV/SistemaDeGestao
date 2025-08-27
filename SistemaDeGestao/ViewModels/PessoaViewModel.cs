@@ -84,6 +84,12 @@ namespace SistemaDeGestao.ViewModels
 
         public event Action<Pessoa> NavigateToPedidos;
 
+        public void LoadPessoas()
+        {
+            Pessoas = new ObservableCollection<Pessoa>(_pessoaService.GetAll());
+        }
+
+
         public PessoaViewModel()
         {
             Pessoas = new ObservableCollection<Pessoa>(_pessoaService.GetAll());

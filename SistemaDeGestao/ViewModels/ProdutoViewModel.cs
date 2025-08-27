@@ -170,5 +170,10 @@ namespace SistemaDeGestao.ViewModels
             Valor = 0;
             ProdutoSelecionado = null;
         }
+
+        public void LoadProdutos()
+        {
+            Produtos = new ObservableCollection<Produto>(_produtoService.GetAll());
+        }
     }
 }

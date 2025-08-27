@@ -18,6 +18,7 @@ namespace SistemaDeGestao.Services
         }
         public List<Pessoa> GetAll()
         {
+            _pessoas = _dataService.LoadData();
             return _pessoas;
         }
 
